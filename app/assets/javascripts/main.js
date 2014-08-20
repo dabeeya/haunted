@@ -128,7 +128,8 @@ function preload() {
   loadImages();
   game.load.tilemap('map', '/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
   game.load.image('Desert', '/images/deserttile.png');
-  // game.load.audio('music', '/music.mp3');
+  game.load.audio('music', '/music.mp3');
+  game.load.audio('powerup', '/power_up.mp3');
 };
 
 function create() {
@@ -164,7 +165,6 @@ function update() {
   game.physics.arcade.overlap(person, starOne, features.teleportOne, null, this);
   game.physics.arcade.overlap(person, starTwo, features.teleportTwo, null, this);
   game.physics.arcade.overlap(person, ghost, features.pacMeetsGhost, null, this);
-
   livesText.text = 'lives: ' + lives;
   scoreText.text = 'score: ' + score;
 

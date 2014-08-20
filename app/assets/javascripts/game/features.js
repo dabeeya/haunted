@@ -18,6 +18,8 @@ features.cherry = function(person, cherry) {
 features.speedUp = function(character, speedUp) {
   speedUp.kill();
   character.speedMultiplyer = 1.5;
+  game.add.audio('powerup');
+  powerup.play();
   setTimeout(function(){character.speedMultiplyer = 1}, 5000);
 }
 
