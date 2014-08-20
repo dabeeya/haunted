@@ -18,8 +18,4 @@
   </div>
 </div>
 
-<% if @sandbox %>
-  <%= javascript_include_tag "sandbox.js" %>
-<% else %>
-  <%= javascript_include_tag "main.js" %>
-<% end %>
+<%= javascript_include_tag "main.js" %>
