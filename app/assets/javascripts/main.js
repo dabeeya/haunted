@@ -79,18 +79,21 @@ $(document).ready(function() {
   });
 
   fb.player1.on("value", function(snapshot) {
-    if (snapshot.val() != true) {
-      modals.urlModal(roomSession);
+    if ((snapshot.val() == true) && (currentPlayer !== "player1")) {
+      fb.player2.on("value", function(snapshot) {
+        if (snapshot.val() !== true) {
+          modals.confirmP2();
+        }
+        else if (snapshot.val() == true) {
+          modals.confirmPlayerModal();
+        }
+      });
     }
     else {
-      modals.confirmPlayerModal();
+      modals.urlModal();
     }
-  })
-  // if (fb.player1.val() !== true) {
-  //   modals.urlModal(roomSession);
-  // } else if (fb.player1.val() == true) {
-  //   modals.confirmPlayerModal();
-  // }
+
+  });
 
 });
 
@@ -140,48 +143,12 @@ function update() {
   game.physics.arcade.overlap(person, ghost, features.pacMeetsGhost, null, this);
 =======
 
-  board.overlap(person, apples, features.eatApple);
-  board.overlap(person, cherry, features.cherry);
-  board.overlap(person, speedUp, features.speedUp);
-  board.overlap(person, slowDown, features.slowDown);
-  board.overlap(ghost, speedUp, features.speedUp);
-  board.overlap(ghost, slowDown, features.slowDown);
-  board.overlap(person, starOne, features.teleportOne);
-  board.overlap(person, starTwo, features.teleportTwo);
-  board.overlap(person, ghost, features.pacMeetsGhost);
+  board.createOverlaps();
 
 >>>>>>> d878adadae35d2a9785adf8383b05301437ebd9b
   livesText.text = 'lives: ' + lives;
   scoreText.text = 'score: ' + score;
 
-  if (currentPlayer === "player1") {
-    person.userControl = true;
-    features.movePlayer(person);
-    if ((person.x !== person.lastx) || (person.y !== person.lasty )) {
-      fb.person.set({
-        x : person.position.x,
-        y : person.position.y
-      });
-    }
-
-    fb.ghost.on("value", function(snapshot) {
-      ghost.x = snapshot.val().x
-      ghost.y = snapshot.val().y
-    });
-  }
-
-  if (currentPlayer === "player2") {
-    features.movePlayer(ghost);
-    if ((ghost.x !== ghost.lastx) || (ghost.y !== ghost.lasty )) {
-      fb.ghost.set({
-        x : ghost.position.x,
-        y : ghost.position.y
-      });
-    }
-
-    fb.person.on("value", function(snapshot) {
-      person.x = snapshot.val().x
-      person.y = snapshot.val().y
-    });
-  }
+  features.pacmanCoordinates();
+  features.ghostCoordinates();
 }
