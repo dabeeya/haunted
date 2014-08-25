@@ -10,7 +10,7 @@ CANVAS_WIDTH = 833;
 CANVAS_HEIGHT = 715;
 CANVAS_OFFSET = 60;
 MAX_SCORE = 10;
-DEFAULT_LIVES = 3;
+DEFAULT_LIVES = 1;
 player1 = false;
 player2 = false;
 currentPlayer = false;
@@ -24,27 +24,26 @@ var speedUp;
 var slowDown;
 var person;
 var ghost;
-var scoreText, livesText;
 var starOne, starTwo;
 var map;
 var layer;
 var cursors;
 var music;
 var fb;
-var instructions = 'Here are the rules of the game.<br /><br /><b>Player1:</b><br /><i>'
-                 + 'Controls</i> - Move your character with the arrow keys.<br /><i>Objective'
-                 + '</i> - Collect all apples and powerups, or eat all the ghosts. The choice'
-                 + ' is yours.<br /><br /><b>Player2</b>:<br /><i>Controls</i> - Select which'
-                 + ' ghost you want to control by pressing numbers 1 through 4. Then, move your'
-                 + ' character with the arrow keys.<br /><i>Objective</i> - Eat the hero until'
-                 + ' the hero has no lives left.<br /><br />Need a moment? Press <b>P</b> to'
-                 + ' pause and <b>R</b> to resume.';
 
-var aboutUs      = 'Hello! Welcome to <i>Haunted</i>! We are a team of 5 members that are'
-                 + ' currently pursuing our passion for coding @ Dev Bootcamp: David Sin, Rootul'
-                 + ' Patel, Sid Patel, Cassie Moy, and Julius Jung. We hope you enjoy playing'
-                 + 'this game as much as we enjoyed creating it. Check out our <a id="aboutus" '
-                 + 'href="https://github.com/red-spotted-newts-2014/haunted">GitHub Repo</a>!';
+var instructions = '<b>PacMan:</b><br />'
+  + '<i>Controls</i> - Move your character with the arrow keys.<br />'
+  + '<i>Objective</i> - Collect all the apples to win.<br /><br />'
+  + '<b>Ghost</b>:<br />'
+  + '<i>Controls</i> - Move your character with the arrow keys.<br />'
+  + '<i>Objective</i> - Eat PacMan until he has no more lives.<br />'
+  + '<br />Need a moment? Press <b>P</b> to pause and <b>R</b> to resume.';
+
+var aboutUs = 'Hello! Welcome to <i>Haunted</i>! We are a team of 5 '
+  + 'members that are currently pursuing our passion for coding @ Dev Bootcamp: '
+  + 'David Sin, Rootul Patel, Sid Patel, Cassie Moy, and Julius Jung. We hope you enjoy '
+  + 'playingthis game as much as we enjoyed creating it. Check out our <a id="aboutus" '
+  + 'href="https://github.com/red-spotted-newts-2014/haunted">GitHub Repo</a>!';
 
 $(document).ready(function() {
   roomSession = $("#room-session").val();
@@ -72,25 +71,21 @@ $(document).ready(function() {
     game.paused = snapshot.val();
   });
 
-  fb.player2.on("value", function(snapshot) {
-    if (snapshot.val()) {
-      fb.pause.set(false);
-    }
-  });
-
   fb.player1.on("value", function(snapshot) {
-    if ((snapshot.val() == true) && (currentPlayer !== "player1")) {
+    if ((snapshot.val() === true) && (currentPlayer !== "player1")) {
       fb.player2.on("value", function(snapshot) {
         if (snapshot.val() !== true) {
           modals.confirmP2();
         }
-        else if (snapshot.val() == true) {
-          modals.confirmPlayerModal();
-        }
       });
+<<<<<<< HEAD
     }
     else {
       modals.urlModal();
+=======
+    } else {
+      modals.confirmP1(roomSession);    
+>>>>>>> 12556eb3a0783fa44d851004ef9b62370179fdb2
     }
 
   });
@@ -102,14 +97,17 @@ var game = new Phaser.Game( CANVAS_WIDTH, CANVAS_HEIGHT, Phaser.AUTO, 'pac', { p
 function preload() {
   loadImages();
   game.load.tilemap('map', '/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+<<<<<<< HEAD
   game.load.audio('powerup', '/power_up.mp3');
   //game.load.audio('music', '/music.mp3');
 
+=======
+  game.load.audio('music', '/music.mp3');
+>>>>>>> 12556eb3a0783fa44d851004ef9b62370179fdb2
 };
 
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
-
   board.createBoard();
   characters.createCharacters();
 
@@ -119,18 +117,15 @@ function create() {
     game.physics.arcade.enable(gamePhysicsArray[i]);
   }
 
-  [person, ghost].forEach(function(character){
-    character.body.collideWorldBounds = true;
-  })
-
+  person.body.collideWorldBounds = true;
+  ghost.body.collideWorldBounds = true;
   cursors = game.input.keyboard.createCursorKeys();
-
 }
 
 function update() {
-
   game.physics.arcade.collide(person,layer);
   game.physics.arcade.collide(ghost,layer);
+<<<<<<< HEAD
 <<<<<<< HEAD
   game.physics.arcade.overlap(person, apples, features.eatApple, null, this);
   game.physics.arcade.overlap(person, cherry, features.cherry, null, this);
@@ -149,6 +144,9 @@ function update() {
   livesText.text = 'lives: ' + lives;
   scoreText.text = 'score: ' + score;
 
+=======
+  board.createOverlaps();
+>>>>>>> 12556eb3a0783fa44d851004ef9b62370179fdb2
   features.pacmanCoordinates();
   features.ghostCoordinates();
 }

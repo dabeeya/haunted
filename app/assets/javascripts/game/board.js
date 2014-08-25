@@ -8,15 +8,6 @@ board.createBoard = function() {
   board.createSpeedUp();
   board.createSlowDown();
   board.addMusic();
-  board.addScoreText();
-  board.addLivesText();
-}
-
-board.addLivesText = function() {
-  livesText = game.add.text(CANVAS_WIDTH - (CANVAS_OFFSET * 2), CANVAS_HEIGHT - CANVAS_OFFSET, 'lives:' + lives, { font: "20px Arial", fill: "indigo", align: "left" });
-}
-board.addScoreText = function() {
-  scoreText = game.add.text(CANVAS_OFFSET, CANVAS_HEIGHT - CANVAS_OFFSET, 'score:' + score, { font: "20px Arial", fill: "indigo", align: "left" });
 }
 
 board.addMusic = function() {
@@ -26,7 +17,7 @@ board.addMusic = function() {
 
 board.createMap = function() {
   map = game.add.tilemap('map');
-  map.addTilesetImage('Desert');
+  map.addTilesetImage('desert');
   layer = map.createLayer('Ground');
   map.setCollision(38);
   layer.resizeWorld();
@@ -52,12 +43,12 @@ board.createApple = function(x, y) {
 board.createApples = function() {
   board.createApple(290, 67); //top left
   board.createApple(65, 250); //upper left
-  board.createApple(90, 445); //mid left
+  board.createApple(160, 445); //mid left
   board.createApple(260, 580); //center left
   board.createApple(65, 670); //bot left
   board.createApple(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 50) //center mid
   board.createApple(CANVAS_WIDTH - 290, 67); //top right
-  board.createApple(CANVAS_WIDTH - 90, 445); //mid right
+  board.createApple(CANVAS_WIDTH - 160, 445); //mid right
   board.createApple(CANVAS_WIDTH - 260, 580); //mid left
   board.createApple(CANVAS_WIDTH - 65, 670); //bot right
 }
@@ -73,7 +64,7 @@ board.createSpeedUp = function() {
 }
 
 board.createSlowDown = function() {
-  slowDown = game.add.sprite(200, 200, 'slow');
+  slowDown = game.add.sprite(160, 200, 'slow');
   slowDown.anchor.setTo(0.5, 0.5);
 }
 

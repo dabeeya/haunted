@@ -14,6 +14,7 @@ function loadImages() {
   createImage("slow");
   createImage("speed");
   createImage("cherry");
-  createSpritesheet("sprites", 32);
-  createImage("Desert");
+  createImage("desert");
+  createSpritesheet("ghost", 32);
+  createSpritesheet("pacman", 32);
 };
